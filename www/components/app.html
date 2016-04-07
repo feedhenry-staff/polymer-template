@@ -1,0 +1,24 @@
+<script>
+    Polymer({
+      is: "rhmap-hello-world",
+      listeners: {
+        'say_hello.tap': 'specialTap'
+      },
+      specialTap: function(e) {
+        var that = this;
+        this.cloudResponse = "Calling Cloud...";
+
+        $fh.cloud({
+          path: 'hello',
+          data: {
+            hello: this.say_hello
+          }
+        }, function (res) {
+          that.cloudResponse = res.msg;
+        }, function (code, errorprops, params) {
+          that.cloudResponse = "";
+          alert('An error occured: ' + code + ' : ' + errorprops);
+        });
+      }
+    });
+  </script>
