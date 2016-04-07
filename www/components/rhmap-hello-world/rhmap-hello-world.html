@@ -11,7 +11,7 @@
           <br>
 
           <div class="input-div">
-              <input id="hello_to" value="{{say_hello::input}}"  type="text" class="input-text" placeholder="Enter Your Name Here."/>
+              <input id="hello_to" value="{{hello_to::input}}"  type="text" class="input-text" placeholder="Enter Your Name Here."/>
           </div>
 
           <br>
@@ -21,5 +21,28 @@
       </div>
   </template>
   <!-- Import html file containing Polymer config for rhmap-hello-world component -->
-  <link rel="import" href="./app.html">
+  <script>
+    Polymer({
+      is: "rhmap-hello-world",
+      listeners: {
+        'say_hello.tap': 'specialTap'
+      },
+      specialTap: function(e) {
+        var that = this;
+        this.cloudResponse = "Calling Cloud...";
+
+        $fh.cloud({
+          path: 'hello',
+          data: {
+            hello: this.hello_to
+          }
+        }, function (res) {
+          that.cloudResponse = res.msg;
+        }, function (code, errorprops, params) {
+          that.cloudResponse = "";
+          alert('An error occured: ' + code + ' : ' + errorprops);
+        });
+      }
+    });
+  </script>
 </dom-module>
