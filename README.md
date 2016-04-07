@@ -1,7 +1,7 @@
-FeedHenry Blank Hybrid App
+FeedHenry Polymer Hybrid App
 ==========================
 
-A basic 'hello world' Hybrid App.
+A basic 'hello world' Polymer Hybrid App.
 
 # Grunt
 
