@@ -1,0 +1,20 @@
+{
+  "name": "RHMAP Polymer helloworld",
+  "version": "0.0.1",
+  "description": "Red Hat Mobile Application Platform Polymer Primer",
+  "main": "index.html",
+  "authors": [
+    "Philip Hayes"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#~1.4.0"
+  }
+}

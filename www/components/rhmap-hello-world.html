@@ -1,0 +1,92 @@
+<!-- import latest release version of all components from polygit -->
+<link rel="import" href="https://polygit.org/components/polymer/polymer.html">
+<script src="feedhenry.js"></script>
+<dom-module id="rhmap-hello-world">
+  <template>
+    <style>
+      /*
+       *  CUSTOM STYLING
+       */
+      #description {
+          text-align: justify;
+          position: relative;
+          padding-top: 40px;
+          font-size: 1.5em;
+      }
+      .input-group {
+          display: block;
+      }
+      .cloudResponse {
+          font-size: 2em;
+
+          font-weight: bold;
+          text-align: center;
+      }
+
+      .say-hello-button {
+          width: 100%;
+
+          margin: 5px 0px 5px 0px;
+          padding: 5px 5px 5px 5px;
+          font-size: 1.6em;
+          background-color: #4a87ee;
+          border: 1px solid #216CEC;
+          color: #fff;
+      }
+
+      .input-text{
+          width: 100%;
+
+          font-size: 2em;
+          margin: 0px;
+          padding: 0px 0px 0px 5px;
+          border: 1px solid #000000;
+          box-sizing: border-box;
+      }
+
+      .input-div {
+          width: 100%;
+
+          padding: 5px 0px 5px 0px;
+      }
+    </style>
+      <div id="formWrapper">
+          <p id="description">This is a basic Polymer Element that can take in your name, send it to a cloud app and display the response.</p>
+          <br>
+
+          <div class="input-div">
+              <input id="hello_to" value="{{say_hello::input}}"  type="text" class="input-text" placeholder="Enter Your Name Here."/>
+          </div>
+
+          <br>
+
+          <button id="say_hello" onclick="" type="button" class="say-hello-button">Say Hello From The Cloud</button>
+          <div id="cloudResponse" class="cloudResponse">{{cloudResponse}}</div>
+      </div>
+  </template>
+  
+  <script>
+    Polymer({
+      is: "rhmap-hello-world",
+      listeners: {
+        'say_hello.tap': 'specialTap'
+      },
+      specialTap: function(e) {
+        var that = this;
+        this.cloudResponse = "Calling Cloud...";
+
+        $fh.cloud({
+          path: 'hello',
+          data: {
+            hello: this.say_hello
+          }
+        }, function (res) {
+          that.cloudResponse = res.msg;
+        }, function (code, errorprops, params) {
+          that.cloudResponse = "";
+          alert('An error occured: ' + code + ' : ' + errorprops);
+        });
+      }
+    });
+  </script>
+</dom-module>
